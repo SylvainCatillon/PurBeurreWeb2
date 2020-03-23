@@ -8,7 +8,7 @@ NB_DISPLAYED_PRODUCTS = 12
 def search(request):
     """
     Takes a request GET with a query
-    Displays products whose name contains the query
+    Displays products whose names contains the query
     Displays 12 random products if the query is empty
 
     Template: "substitut_search/search.html"
@@ -19,8 +19,20 @@ def search(request):
         query = "Produits aléatoires"
         products = Product.objects.order_by('?')[:NB_DISPLAYED_PRODUCTS]
     else:
-        products = Product.objects.filter(
-            name__icontains=query)[:NB_DISPLAYED_PRODUCTS]
+        #  Fetch the products whose names starts with the query
+        products = list(
+            Product.objects.filter(name__istartswith=query)
+            [:NB_DISPLAYED_PRODUCTS])
+        #  If there is not enough products,
+        #  add the products whose names contains the query
+        len_products = len(products)
+        if len_products < NB_DISPLAYED_PRODUCTS:
+            products2 = Product.objects.exclude(name__istartswith=query)
+            #  Split the query to search the words separately
+            for word in query.split():
+                products2 = products2.filter(name__icontains=word)
+            products += list(products2[:NB_DISPLAYED_PRODUCTS-len_products])
+
     context = {"products": products, "query": query}
     return render(request, "substitut_search/search.html", context)
 

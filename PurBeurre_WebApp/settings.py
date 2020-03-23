@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
-import django_heroku
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -133,4 +131,10 @@ LOGIN_REDIRECT_URL = '/accounts/myaccount/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Activate Django-Heroku.
-django_heroku.settings(locals())
+try:
+    import django_heroku
+    django_heroku.settings(locals())
+except ImportError:
+    print(
+        "Couldn't import Django-Heroku. "
+        "Be carefull if you are in an Heroku production environment")
