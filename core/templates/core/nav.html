@@ -19,7 +19,7 @@
             <a class="nav-link js-scroll-trigger" href="{% url user_url %}" title="{{ user_title }}"><i class="fas fa-user"><div class="ml-3 d-inline d-lg-none">{{ user_title }}</div></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" title="{{ fav_title }}" href="{% url fav_url %}"><i class="fas fa-carrot"></i><div class="ml-3 d-inline d-lg-none">{{ fav_title }}</div></a>
+            <a class="nav-link js-scroll-trigger" title="Mes aliments" href="{% url 'substitut:favories' %}"><i class="fas fa-carrot"></i><div class="ml-3 d-inline d-lg-none">Mes aliments</div></a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger"href="{% url log_url %}" title="{{ log_title }}"><i class="fas {{ log_icone }}"></i><div class="ml-3 d-inline d-lg-none">{{ log_title }}</div></a>

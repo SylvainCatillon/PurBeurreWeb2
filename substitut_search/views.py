@@ -93,7 +93,7 @@ def favories(request):
     user = request.user
     #  a user need to be authenticated to access this page
     if not user.is_authenticated:
-        return HttpResponseForbidden()
+        return render(request, "substitut_search/favories_unlogged.html")
     #  if the request method is POST, save the product in the user favories
     if request.method == "POST":
         product_id = request.POST.get('product_id')
