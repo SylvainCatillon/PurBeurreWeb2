@@ -7,9 +7,7 @@
   <div class="container">
     <div class="row text-center justify-content-around">
       <div class="col-5 rounded bg-light h4 my-5">Nutriscore<br>
-        {% with 'substitut_search/img/nutriscores/'|add:product.nutriscore|add:'.jpg' as nutriscore_img %}
-        <img class="my-2 img-fluid mt-3" src="{% static nutriscore_img %}" alt="{{ product.nutriscore }}">
-        {% endwith %}
+        <img class="my-2 img-fluid mt-3" src="{% static 'substitut_search/img/nutriscores/' %}{{product.nutriscore}}.jpg" alt="{{ product.nutriscore }}">
       </div>
       {% if product.nutrient_levels %}
       <div class="col-5 rounded bg-light my-5">

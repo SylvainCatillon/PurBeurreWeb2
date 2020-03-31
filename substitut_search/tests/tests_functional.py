@@ -15,7 +15,7 @@ class TestFavoriesSelenium(StaticLiveServerTestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.selenium = webdriver.Firefox()
-        cls.selenium.implicitly_wait(10)
+        cls.selenium.implicitly_wait(15)
 
     @classmethod
     def tearDownClass(cls):

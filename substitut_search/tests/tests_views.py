@@ -70,7 +70,6 @@ class TestSearchProduct(TestCase):
             len(Product.objects.all()))
 
     # test if the founded substitut has a better nutriscore
-    # and is in the same category
     def test_find_a_substitut(self):
         product = Product.objects.order_by('-nutriscore')[0]
         response = self.client.get(
@@ -112,17 +111,6 @@ class TestFavories(TestCase):
         self.client.login(
             username=self.user.username, password=self.user_info["password"])
 
-    # test a loged user see the button "save" and an unloged don't
-    def test_save_button(self):
-        product = Product.objects.order_by('-nutriscore')[0]
-        response = self.client.get(
-            f"{reverse('substitut:find')}?product_id={product.id}")
-        self.assertContains(response, 'class="save_form')
-        self.client.logout()
-        response = self.client.get(
-            f"{reverse('substitut:find')}?product_id={product.id}")
-        self.assertNotContains(response, 'class="save_form')
-
     # test a favory is saved
     def test_save_favory(self):
         product_id = self.product.id
@@ -142,4 +130,5 @@ class TestFavories(TestCase):
     def test_see_favories_unlogged_user(self):
         self.client.logout()
         response = self.client.get(reverse("substitut:favories"))
-        self.assertEqual(response.status_code, 403)
+        self.assertTemplateUsed(
+            response, "substitut_search/favories_unlogged.html")
